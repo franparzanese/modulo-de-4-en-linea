@@ -22,14 +22,15 @@ Evaluation *evaluation_create(short value, unsigned char *sequence, unsigned sho
  * Libera la memoria reservada por una evaluación.
  * @param evaluation Evaluación a liberar.
  */
-void evaluation_free(Evaluation *evaluation);
+void evaluation_free(Evaluation **evaluation);
 
 /**
  * Escribe una evaluación en un fichero de texto.
+ * @param evaluation Evaluación a escribir.
  * @param file Ruta al fichero de texto.
  * @return Si se escribió el fichero o no.
  */
-bool evaluation_write_to_file(char *file);
+bool evaluation_write_to_file(Evaluation *evaluation, char *file);
 
 /**
  * Determina si una evaluación es mejor que otra.
@@ -38,14 +39,5 @@ bool evaluation_write_to_file(char *file);
  * @return Si la evaluación es mejor o no.
  */
 bool evaluation_is_better(Evaluation *evaluation, Evaluation *other);
-
-/**
- * Actualiza una evaluación.
- * @param evaluation Evaluación a actualizar.
- * @param value Nuevo valor de la evaluación.
- * @param sequence Nueva secuencia de columnas jugadas.
- * @param length Nueva cantidad de jugadas en la secuencia.
- */
-void evaluation_update(Evaluation *evaluation, short value, unsigned char *sequence, unsigned short length);
 
 #endif

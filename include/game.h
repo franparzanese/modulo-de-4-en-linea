@@ -22,7 +22,7 @@ Game *game_create_from_file(char *file);
  * Libera la memoria reservada por una partida.
  * @param game Partida a liberar.
  */
-void game_free(Game *game);
+void game_free(Game **game);
 
 /**
  * Determina si una partida es válida. Esto implica que:

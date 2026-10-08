@@ -25,7 +25,7 @@ Grill *grill_create(char **cells, unsigned char rows, unsigned char columns, uns
  * Libera la memoria reservada por una grilla.
  * @param grill Grilla a liberar.
  */
-void grill_free(Grill *grill);
+void grill_free(Grill **grill);
 
 /**
  * Determina si una columna está llena en una grilla.
