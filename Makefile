@@ -26,6 +26,7 @@ TEST_OBJ := $(BUILD_FOLDER)tests/test_evaluation.o \
 	$(BUILD_FOLDER)tests/test_solver.o
 
 all: $(MAIN_BIN)
+	./$<
 
 $(MAIN_BIN): $(MAIN_OBJ) $(SRC_OBJ)
 	mkdir -p $(@D)
@@ -44,6 +45,7 @@ fclean: clean
 re: fclean all
 
 test: $(TEST_BIN)
+	./$<
 
 $(TEST_BIN): $(SRC_OBJ) $(TEST_OBJ)
 	mkdir -p $(@D)
