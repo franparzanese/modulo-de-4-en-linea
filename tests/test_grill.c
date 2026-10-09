@@ -32,6 +32,36 @@ Test(grill, create, .description = "Crear una grilla") {
     grill_free(&grill);
 }
 
+Test(grill, create_empty, .description = "Crear una grilla vacía") {
+    /*
+     * Grilla:
+     * | - - |
+     * | - - |
+     * | - - |
+     * | - - |
+     */
+    unsigned char **cells = malloc(2 * sizeof(unsigned char *));
+    cells[0] = malloc(4 * sizeof(unsigned char));
+    cells[0][0] = 0;
+    cells[0][1] = 0;
+    cells[0][2] = 0;
+    cells[0][3] = 0;
+    cells[1] = malloc(4 * sizeof(unsigned char));
+    cells[1][0] = 0;
+    cells[1][1] = 0;
+    cells[1][2] = 0;
+    cells[1][3] = 0;
+    Grill *grill = grill_create(cells, 2, 4, 2);
+    cr_assert_not_null(grill);
+    cr_assert_eq(grill->cells, cells);
+    cr_assert_eq(grill->columns, 2);
+    cr_assert_eq(grill->rows, 4);
+    cr_assert_eq(grill->chips_per_player[0], 0);
+    cr_assert_eq(grill->chips_per_player[1], 0);
+    cr_assert_eq(grill->players, 2);
+    grill_free(&grill);
+}
+
 Test(grill, create_floating_chips, .description = "No puede crearse una grilla con fichas en el aire") {
     /*
      * Grilla:
@@ -99,17 +129,17 @@ Test(grill, create_no_players, .description = "No puede crearse una grilla sin j
      * Grilla:
      * | - - |
      * | - - |
-     * | 1 - |
-     * | 1 2 |
+     * | - - |
+     * | - - |
      */
     unsigned char **cells = malloc(2 * sizeof(unsigned char *));
     cells[0] = malloc(4 * sizeof(unsigned char));
-    cells[0][0] = 1;
-    cells[0][1] = 1;
+    cells[0][0] = 0;
+    cells[0][1] = 0;
     cells[0][2] = 0;
     cells[0][3] = 0;
     cells[1] = malloc(4 * sizeof(unsigned char));
-    cells[1][0] = 2;
+    cells[1][0] = 0;
     cells[1][1] = 0;
     cells[1][2] = 0;
     cells[1][3] = 0;
@@ -202,7 +232,7 @@ Test(grill, is_full_column_non_existent, .description = "Una columna inexistente
 }
 
 Test(grill, is_full_column_null, .description = "Una grilla nula no tiene columnas llenas") {
-    cr_assert(grill_is_full_column(NULL, 1));
+    cr_assert_not(grill_is_full_column(NULL, 1));
 }
 
 Test(grill, is_full_true, .description = "Verificar que una grilla esté llena") {
@@ -353,7 +383,7 @@ Test(grill, put_chip_non_existent_column, .description = "En una columna inexist
     cells[1][2] = 0;
     cells[1][3] = 0;
     Grill *grill = grill_create(cells, 2, 4, 2);
-    cr_assert(grill_put_chip(grill, 2, 3));
+    cr_assert_not(grill_put_chip(grill, 2, 3));
     cr_assert_eq(grill->chips_per_player[1], 2);
     grill_free(&grill);
 }
