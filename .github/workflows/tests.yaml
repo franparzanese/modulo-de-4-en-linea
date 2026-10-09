@@ -1,0 +1,21 @@
+name: Tests
+on:
+  push:
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Instalar Criterion
+        run: |
+          sudo apt update
+          sudo apt install -y libcriterion-dev
+      - name: Loguear versiones de las herramientas de desarrollo
+        run: |
+          gcc --version
+          make --version
+          dpkg-query --show libcriterion-dev
+      - name: Clonar repositorio
+        uses: actions/checkout@v7
+      - name: Ejecutar tests
+        run: make test
