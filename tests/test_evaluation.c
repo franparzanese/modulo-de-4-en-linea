@@ -19,8 +19,7 @@ Test(evaluation, create_bad_sequence, .description = "Una evaluación con valor 
     unsigned char *sequence = malloc(sizeof(unsigned char));
     sequence[0] = 4;
     // Dado el valor 2 debería tener 3 ó 4 jugadas pero tiene 1.
-    Evaluation *evaluation = evaluation_create(2, sequence, 1);
-    cr_assert_null(evaluation);
+    cr_assert_null(evaluation_create(2, sequence, 1));
     free(sequence);
 }
 
